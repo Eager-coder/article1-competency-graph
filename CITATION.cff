@@ -5,7 +5,10 @@ authors:
   - family-names: Turan
     given-names: Sultan
     affiliation: Astana IT University
-version: 1.0.0
+  - family-names: Akanova
+    given-names: Akerke
+    affiliation: Astana IT University
+version: 1.1.0
 date-released: 2026-11-25
 license: MIT
 type: software

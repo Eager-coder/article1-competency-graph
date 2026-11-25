@@ -2,7 +2,7 @@
 
 Code and data for the paper *An Evidence-Selection Model for Dynamic Student Competency
 Profiles over a Curriculum–Job Graph*
-(Sultan Turan, Astana IT University).
+(Sultan Turan and Akerke Akanova, Astana IT University).
 
 The repository contains a reference implementation of the typed graph, the
 profile computation, versioned requirements and rubrics, the checks reported in the paper, and a case study that
