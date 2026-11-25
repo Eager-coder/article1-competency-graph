@@ -1,22 +1,23 @@
 {
   "data_status": "entirely synthetic; no participants, real curricula or scraped vacancies",
   "seed": 7,
-  "scenario_count": 11,
-  "scenarios_passed": 11,
+  "scenario_count": 13,
+  "scenarios_passed": 13,
   "property_check_iterations": 1000,
   "property_checks_passed": true,
   "property_check_inputs": {
     "iterations": 1000,
-    "revisions": 15615,
-    "revocations": 5053,
-    "late_initial_records": 8727,
-    "queries_with_t_ne_tau": 970,
-    "nonempty_states": 462,
-    "fallback_after_revoked_attempt": 52,
-    "future_revisions_injected": 1119
+    "revisions": 16038,
+    "revocations": 5289,
+    "late_initial_records": 8920,
+    "queries_with_t_ne_tau": 977,
+    "nonempty_states": 495,
+    "fallback_after_revoked_attempt": 55,
+    "future_revisions_injected": 1204
   },
   "thresholds": {
     "disagreement": 0.35,
+    "min_support": 1.0,
     "role_v1": 0.7,
     "role_v2": 0.6
   },
@@ -370,16 +371,27 @@
       "meaning": "Dispersion triggers review under the illustrative threshold 0.35."
     },
     {
-      "scenario": "S8 requirement revision",
+      "scenario": "S8 requirement versions",
       "status": "passed",
       "observed": {
         "state": 0.6666666666666666,
-        "old_requirement": 0.7,
-        "new_requirement": 0.6,
-        "old_alignment": "below configured threshold",
-        "new_alignment": "meets configured threshold"
+        "selected_version": {
+          "t3_tau3": 1,
+          "t4_tau4": 2,
+          "t4_tau3": 1
+        },
+        "level": {
+          "t3_tau3": 0.7,
+          "t4_tau4": 0.6,
+          "t4_tau3": 0.7
+        },
+        "alignment": {
+          "t3_tau3": "below configured threshold",
+          "t4_tau4": "meets configured threshold",
+          "t4_tau3": "below configured threshold"
+        }
       },
-      "meaning": "A role requirement changes the comparison, not the student's estimated score."
+      "meaning": "The requirement version is selected with the same two cutoffs; a new level changes the comparison, not the student's estimate, and is not applied before it is recorded."
     },
     {
       "scenario": "S9 duplicates and replay order",
@@ -402,9 +414,9 @@
       "scenario": "S10 invalid input rejection",
       "status": "passed",
       "observed": {
-        "rejected_invalid_inputs": 3
+        "rejected_invalid_inputs": 7
       },
-      "meaning": "Wrong edge types, missing source references and conflicting duplicate revisions are rejected."
+      "meaning": "Wrong edge types, missing source references, conflicting duplicate revisions, a second record for one attempt, attempt numbers against occurrence order, a requirement version that changes its skill and versions recorded out of order are rejected."
     },
     {
       "scenario": "S11 role trace and mapping constraint",
@@ -413,6 +425,7 @@
         "trace": [
           {
             "requirement": "RD",
+            "version": 1,
             "level": 0.7,
             "skill": "docker",
             "assessments": [],
@@ -422,6 +435,7 @@
           },
           {
             "requirement": "RP",
+            "version": 1,
             "level": 0.7,
             "skill": "python",
             "assessments": [
@@ -441,6 +455,48 @@
         "rejected_unmapped_evidence": 1
       },
       "meaning": "Role R traces through requirements, skills and assessments to selected evidence; evidence for docker from A is rejected because A does not assess docker."
+    },
+    {
+      "scenario": "S12 rubric versions",
+      "status": "passed",
+      "observed": {
+        "accepted": "a3 under rubric-v2",
+        "rejected": 3,
+        "state": {
+          "estimate": 0.7,
+          "support": 1.0,
+          "dispersion": 0.0,
+          "evidence": [
+            [
+              "a3",
+              1
+            ]
+          ],
+          "latest_event": 5
+        }
+      },
+      "meaning": "A record must name a rubric version declared for its assessment and in force when it occurred; re-scoring under a new rubric is a new attempt or a revocation plus a new observation."
+    },
+    {
+      "scenario": "S13 minimum support",
+      "status": "passed",
+      "observed": {
+        "state": {
+          "estimate": 0.4,
+          "support": 0.5,
+          "dispersion": 0.0,
+          "evidence": [
+            [
+              "b1",
+              1
+            ]
+          ],
+          "latest_event": 2
+        },
+        "label": "insufficient evidence",
+        "min_support": 1.0
+      },
+      "meaning": "Support below the configured minimum gives 'insufficient evidence' instead of meets/below; D is 0 for one contribution, so dispersion is informative only with two or more."
     }
   ]
 }

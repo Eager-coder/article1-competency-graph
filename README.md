@@ -4,8 +4,8 @@ Code and data for the paper *Graph Models of Educational and Professional
 Relations and an Evidence-Based Dynamic Student Competency Profile*
 (Sultan Turan, Astana IT University).
 
-The repository contains a reference implementation of the typed graph and the
-profile computation, the checks reported in the paper, and a case study that
+The repository contains a reference implementation of the typed graph, the
+profile computation, versioned requirements and rubrics, the checks reported in the paper, and a case study that
 loads two public course specifications and three public vacancies into the
 graph.
 
@@ -32,7 +32,7 @@ python3 case_study.py --output reproduced_results.json
 
 | Script | Paper result | Expected output |
 |---|---|---|
-| `verification/verify_models.py` | scenario table, property checks | 11/11 scenarios pass; 1,000 property-check iterations pass. The output is identical to `verification_results.json` |
+| `verification/verify_models.py` | scenario table, property checks | 13/13 scenarios pass; 1,000 property-check iterations pass. The output is identical to `verification_results.json` |
 | `verification/mutation_checks.py` | rule-removal check | the faithful re-implementation passes, and all 10 simplified versions are caught |
 | `verification/evaluate_audit.py` | SQL cross-check | 2,000/2,000 queries agree (seed 41, 200 ledgers); rewrites `audit_results.json` with identical content |
 | `case_study/case_study.py` | case study on public specifications | output is identical to `results.json` (see below) |

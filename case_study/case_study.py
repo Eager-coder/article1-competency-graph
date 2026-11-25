@@ -210,7 +210,8 @@ def policy_experiment(edges, seed=7, students=1000, level=0.70):
             est = {p: policy_estimate(subset, u, s, t, tau, p) for p in ("latest", "average_if_improved", "best")}
             reference = profile(subset, u, s, t, tau)["estimate"]
             assert reference is not None and abs(reference - est["latest"]) < 1e-12, "latest must equal profile()"
-            lab = {p: alignment({"estimate": v, "dispersion": 0.0}, level) for p, v in est.items()}
+            support = profile(subset, u, s, t, tau)["support"]
+            lab = {p: alignment({"estimate": v, "support": support, "dispersion": 0.0}, level) for p, v in est.items()}
             total += 1
             for p, l in lab.items():
                 labels[p][l] += 1

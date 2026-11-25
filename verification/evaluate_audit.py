@@ -43,8 +43,10 @@ def run():
     queries = revisions = revoked = late = 0
     for case in range(200):
         records = []
-        for i in range(rng.randint(5,25)):
-            occurred = rng.randint(0,30)
+        n = rng.randint(5,25)
+        times = sorted(rng.randint(0,30) for _ in range(n))  # attempt numbers follow occurrence order
+        for i in range(n):
+            occurred = times[i]
             recorded = occurred+rng.randint(0,8)
             e = Evidence(f'e{i:03}',1,rng.choice(['u','v']),rng.choice(['python','sql']),
                          f'A{i%4}',i+1,occurred,recorded,rng.random(),rng.uniform(.05,1))

@@ -2,9 +2,9 @@
   "seed": 41,
   "ledgers": 200,
   "queries": 2000,
-  "additional_revisions": 4809,
-  "revoked_revisions": 1564,
-  "late_initial_records": 2818,
+  "additional_revisions": 4385,
+  "revoked_revisions": 1461,
+  "late_initial_records": 2673,
   "sql_agreement": true,
   "absolute_and_relative_tolerance": 1e-12,
   "counterexamples": [

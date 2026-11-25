@@ -29,6 +29,29 @@ class Evidence:
     rubric: str = "rubric-v1"
 
 
+@dataclass(frozen=True)
+class RequirementVersion:
+    """One version of a role requirement: in force from valid_from (event time)
+    until valid_to (exclusive, optional), known from recorded (recording time)."""
+    requirement: str
+    version: int
+    skill: str
+    level: float
+    valid_from: int
+    recorded: int
+    valid_to: Optional[int] = None
+    source: str = "synthetic-spec-v1"
+
+
+@dataclass(frozen=True)
+class RubricVersion:
+    """A rubric version declared for an assessment and its validity interval."""
+    assessment: str
+    rubric: str
+    valid_from: int
+    valid_to: Optional[int] = None
+
+
 def canonical(records):
     """An evidence ID denotes one student/skill/assessment/attempt observation."""
     unique = {}
@@ -53,6 +76,19 @@ def canonical(records):
             raise ValueError("a revision cannot change observation identity")
         if any(a.recorded >= b.recorded for a, b in zip(ordered, ordered[1:])):
             raise ValueError("revision recording times must increase strictly")
+    # One observation per (student, skill, assessment, attempt); attempt numbers
+    # must not contradict occurrence order.
+    attempts = defaultdict(dict)
+    for group in by_id.values():
+        e = group[0]
+        slot = attempts[(e.student, e.skill, e.assessment)]
+        if e.attempt in slot and slot[e.attempt].evidence_id != e.evidence_id:
+            raise ValueError("two observations for the same attempt")
+        slot[e.attempt] = e
+    for slot in attempts.values():
+        ordered = [slot[k] for k in sorted(slot)]
+        if any(a.occurred > b.occurred for a, b in zip(ordered, ordered[1:])):
+            raise ValueError("attempt numbers contradict occurrence order")
     return list(unique.values())
 
 
@@ -88,10 +124,13 @@ def profile(records, student, skill, t, tau):
             "latest_event": max(e.occurred for e in observations)}
 
 
-def alignment(state, required, disagreement=0.35):
-    """Illustrative policy; thresholds have not been empirically calibrated."""
+def alignment(state, required, disagreement=0.35, min_support=1.0):
+    """Illustrative policy; thresholds have not been empirically calibrated.
+    Dispersion is informative only with two or more contributions (it is 0 for one)."""
     if state["estimate"] is None:
         return "unassessed"
+    if state["support"] < min_support:
+        return "insufficient evidence"
     if state["dispersion"] > disagreement:
         return "review"
     return "meets configured threshold" if state["estimate"] >= required else "below configured threshold"
@@ -107,6 +146,47 @@ ALLOWED = {("Course", "targets", "LearningOutcome"),
            ("Evidence", "observed_for", "Student"),
            ("Evidence", "generated_by", "Assessment"),
            ("Evidence", "concerns", "Skill")}
+
+
+def check_requirements(versions):
+    """Versions of one requirement keep their skill, have distinct numbers, and are
+    recorded in version order; levels lie in [0, 1]."""
+    by_requirement = defaultdict(list)
+    for v in versions:
+        if not 0 <= v.level <= 1 or not v.source or v.version < 1:
+            raise ValueError("invalid requirement version")
+        if v.valid_to is not None and v.valid_to <= v.valid_from:
+            raise ValueError("empty validity interval")
+        by_requirement[v.requirement].append(v)
+    for group in by_requirement.values():
+        ordered = sorted(group, key=lambda v: v.version)
+        if len({v.skill for v in group}) != 1 or len({v.version for v in group}) != len(group):
+            raise ValueError("a requirement version cannot change its skill or repeat a number")
+        if any(a.recorded >= b.recorded for a, b in zip(ordered, ordered[1:])):
+            raise ValueError("requirement versions must be recorded in version order")
+    return True
+
+
+def requirement_at(versions, requirement, t, tau):
+    """The latest version recorded by tau whose validity has started by t;
+    None if no such version exists or the selected version has expired at t."""
+    check_requirements(versions)
+    known = [v for v in versions if v.requirement == requirement and v.recorded <= tau and v.valid_from <= t]
+    if not known:
+        return None
+    chosen = max(known, key=lambda v: v.version)
+    if chosen.valid_to is not None and t >= chosen.valid_to:
+        return None
+    return chosen
+
+
+def check_rubrics(records, rubrics):
+    """Each record must name a rubric version declared for its assessment and in force when it occurred."""
+    for e in records:
+        if not any(r.assessment == e.assessment and r.rubric == e.rubric and r.valid_from <= e.occurred
+                   and (r.valid_to is None or e.occurred < r.valid_to) for r in rubrics):
+            raise ValueError(f"rubric {e.rubric} is not in force for {e.assessment} at {e.occurred}")
+    return True
 
 
 def validate_edge(source_type, relation, target_type, source_reference):
@@ -150,19 +230,27 @@ def check_mapping(records, edges):
     return True
 
 
-def role_trace(edges, records, student, role, levels, t, tau):
-    """Role -> requirement -> skill -> assessments -> selected evidence -> label."""
+def role_trace(edges, records, student, role, requirements, rubrics, t, tau):
+    """Role -> requirement version in force -> skill -> assessments -> selected evidence -> label."""
     check_mapping(records, edges)
+    check_rubrics(records, rubrics)
     def adjacent(node, relation):
         return sorted(v for u, r, v in edges if u == node and r == relation)
     trace = []
     for requirement in adjacent(role, "has_requirement"):
+        version = requirement_at(requirements, requirement, t, tau)
         for skill in adjacent(requirement, "requires"):
+            if version is None:
+                trace.append({"requirement": requirement, "version": None, "level": None, "skill": skill,
+                              "assessments": [], "evidence": [], "estimate": None, "label": "not in force"})
+                continue
+            if version.skill != skill:
+                raise ValueError("requirement version and graph disagree on the skill")
             assessments = sorted(u for u, r, v in edges if r == "assesses" and v == skill)
             state = profile(records, student, skill, t, tau)
-            label = alignment(state, levels[requirement]) if assessments else "unassessed: no assessment mapping"
-            trace.append({"requirement": requirement, "level": levels[requirement], "skill": skill,
-                          "assessments": assessments, "evidence": state["evidence"],
+            label = alignment(state, version.level) if assessments else "unassessed: no assessment mapping"
+            trace.append({"requirement": requirement, "version": version.version, "level": version.level,
+                          "skill": skill, "assessments": assessments, "evidence": state["evidence"],
                           "estimate": state["estimate"], "label": label})
     return trace
 
@@ -174,8 +262,10 @@ def random_ledger(rng):
     """Observations for two students and two skills, with 0-3 later revisions
     (corrections or revocations) and late recording."""
     records = []
-    for i in range(rng.randint(1, 20)):
-        occurred = rng.randint(0, 20)
+    n = rng.randint(1, 20)
+    times = sorted(rng.randint(0, 20) for _ in range(n))  # later attempts never occur earlier
+    for i in range(n):
+        occurred = times[i]
         recorded = occurred + rng.randint(0, 5)
         e = Evidence(f"r{i:02}", 1, rng.choice(STUDENTS), rng.choice(SKILLS), f"A{i % 4}", i // 4 + 1,
                      occurred, recorded, rng.random(), rng.uniform(0.05, 1.0))
@@ -309,13 +399,24 @@ def run():
     assert alignment(conflict, 0.4) == "review"
     record("S7 divergent assessment scores", conflict, "Dispersion triggers review under the illustrative threshold 0.35.")
 
-    old = alignment(combined, 0.7)
-    new = alignment(combined, 0.6)
-    assert old == "below configured threshold" and new == "meets configured threshold"
-    assert profile([a, b], "u", "python", 2, 2) == combined
-    record("S8 requirement revision", {"state": combined["estimate"], "old_requirement": 0.7, "new_requirement": 0.6,
-                                       "old_alignment": old, "new_alignment": new},
-           "A role requirement changes the comparison, not the student's estimated score.")
+    rp1 = RequirementVersion("RP", 1, "python", 0.7, valid_from=0, recorded=0)
+    rp2 = RequirementVersion("RP", 2, "python", 0.6, valid_from=4, recorded=4)
+    versions = [rp1, rp2]
+    queries = {"t3_tau3": (3, 3), "t4_tau4": (4, 4), "t4_tau3": (4, 3)}
+    chosen = {k: requirement_at(versions, "RP", *q) for k, q in queries.items()}
+    assert chosen["t3_tau3"] == rp1 and chosen["t4_tau4"] == rp2 and chosen["t4_tau3"] == rp1
+    labels = {k: alignment(profile([a, b], "u", "python", *queries[k]), v.level) for k, v in chosen.items()}
+    assert labels == {"t3_tau3": "below configured threshold", "t4_tau4": "meets configured threshold",
+                      "t4_tau3": "below configured threshold"}
+    assert all(profile([a, b], "u", "python", *q)["estimate"] == combined["estimate"] for q in queries.values())
+    expired = RequirementVersion("RX", 1, "python", 0.5, valid_from=0, recorded=0, valid_to=3)
+    assert requirement_at([expired], "RX", 2, 2) == expired and requirement_at([expired], "RX", 3, 3) is None
+    assert requirement_at(versions, "RP", 3, 6) == rp1  # v2 is known but not yet in force at t=3
+    record("S8 requirement versions", {"state": combined["estimate"],
+                                       "selected_version": {k: v.version for k, v in chosen.items()},
+                                       "level": {k: v.level for k, v in chosen.items()}, "alignment": labels},
+           "The requirement version is selected with the same two cutoffs; a new level changes the "
+           "comparison, not the student's estimate, and is not applied before it is recorded.")
 
     assert profile(all_records + [a, corrected], "u", "python", 3, 6) == removed
     assert profile(list(reversed(all_records)), "u", "python", 3, 6) == removed
@@ -328,17 +429,29 @@ def run():
             validate_edge(*args)
         except ValueError:
             rejected += 1
-    try:
-        canonical([a, replace(a, score=0.1)])
-    except ValueError:
-        rejected += 1
-    assert rejected == 3
+    for bad in ([a, replace(a, score=0.1)],                                    # conflicting duplicate revision
+                [a, Evidence("a1x", 1, "u", "python", "A", 1, 1, 2, 0.5)],      # second record for one attempt
+                [replace(a2, occurred=0, recorded=0), a]):                       # attempt 2 occurs before attempt 1
+        try:
+            canonical(bad)
+        except ValueError:
+            rejected += 1
+    for bad in ([RequirementVersion("RP", 1, "python", 0.7, 0, 0), RequirementVersion("RP", 2, "docker", 0.6, 4, 4)],
+                [RequirementVersion("RP", 1, "python", 0.7, 0, 5), RequirementVersion("RP", 2, "python", 0.6, 4, 4)]):
+        try:
+            check_requirements(bad)
+        except ValueError:
+            rejected += 1
+    assert rejected == 7
     record("S10 invalid input rejection", {"rejected_invalid_inputs": rejected},
-           "Wrong edge types, missing source references and conflicting duplicate revisions are rejected.")
+           "Wrong edge types, missing source references, conflicting duplicate revisions, a second record for one "
+           "attempt, attempt numbers against occurrence order, a requirement version that changes its skill and "
+           "versions recorded out of order are rejected.")
 
     graph = graph_example()
-    levels = {"RP": 0.7, "RD": 0.7}
-    trace = role_trace(graph["edges"], all_records, "u", "R", levels, 3, 6)
+    requirements = [RequirementVersion("RP", 1, "python", 0.7, 0, 0), RequirementVersion("RD", 1, "docker", 0.7, 0, 0)]
+    rubrics = [RubricVersion("A", "rubric-v1", 0), RubricVersion("B", "rubric-v1", 0)]
+    trace = role_trace(graph["edges"], all_records, "u", "R", requirements, rubrics, 3, 6)
     assert [(x["skill"], x["assessments"], x["evidence"], x["label"]) for x in trace] == [
         ("docker", [], [], "unassessed: no assessment mapping"),
         ("python", ["A", "B"], [["a2", 2]], "meets configured threshold")]
@@ -352,12 +465,41 @@ def run():
            "Role R traces through requirements, skills and assessments to selected evidence; "
            "evidence for docker from A is rejected because A does not assess docker.")
 
+    # S12 rubric versions: A switches to rubric-v2 from day 4.
+    rubrics_v2 = [RubricVersion("A", "rubric-v1", 0, valid_to=4), RubricVersion("A", "rubric-v2", 4),
+                  RubricVersion("B", "rubric-v1", 0)]
+    a3 = Evidence("a3", 1, "u", "python", "A", 3, 5, 5, 0.7, rubric="rubric-v2")
+    assert check_rubrics(all_records + [a3], rubrics_v2)
+    rubric_rejected = 0
+    for bad in (replace(a3, evidence_id="a3x", occurred=3, recorded=3, attempt=2),   # v2 before it is in force
+                replace(a3, evidence_id="a3y", rubric="rubric-v9"),                   # undeclared version
+                Evidence("a4", 1, "u", "python", "A", 4, 6, 6, 0.7)):                 # v1 after it expired
+        try:
+            check_rubrics([bad], rubrics_v2)
+        except ValueError:
+            rubric_rejected += 1
+    assert rubric_rejected == 3
+    with_v2 = profile(all_records + [a3], "u", "python", 5, 6)
+    assert with_v2["evidence"] == [["a3", 1]] and with_v2["estimate"] == 0.7
+    record("S12 rubric versions", {"accepted": "a3 under rubric-v2", "rejected": rubric_rejected, "state": with_v2},
+           "A record must name a rubric version declared for its assessment and in force when it occurred; "
+           "re-scoring under a new rubric is a new attempt or a revocation plus a new observation.")
+
+    # S13 minimum support: a single half-weight observation is not enough for a label.
+    thin = profile([b], "u", "python", 2, 2)
+    assert thin["support"] == 0.5 and thin["dispersion"] == 0.0
+    assert alignment(thin, 0.3) == "insufficient evidence"
+    assert alignment(combined, 0.6) == "meets configured threshold"
+    record("S13 minimum support", {"state": thin, "label": alignment(thin, 0.3), "min_support": 1.0},
+           "Support below the configured minimum gives 'insufficient evidence' instead of meets/below; "
+           "D is 0 for one contribution, so dispersion is informative only with two or more.")
+
     properties = property_checks(random.Random(7), 1000)
     return {"data_status": "entirely synthetic; no participants, real curricula or scraped vacancies",
             "seed": 7, "scenario_count": len(results), "scenarios_passed": len(results),
             "property_check_iterations": properties["iterations"], "property_checks_passed": True,
             "property_check_inputs": properties,
-            "thresholds": {"disagreement": 0.35, "role_v1": 0.7, "role_v2": 0.6},
+            "thresholds": {"disagreement": 0.35, "min_support": 1.0, "role_v1": 0.7, "role_v2": 0.6},
             "graph_example": graph, "fixture": [asdict(e) for e in all_records], "scenarios": results}
 
 
