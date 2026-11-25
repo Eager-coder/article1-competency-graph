@@ -1,0 +1,46 @@
+item_id,skills,comment
+SYD.LO1,architecture,
+SYD.LO2,architecture;communication,
+SYD.LO3,teamwork,
+SYD.LO4,,Общие основы веб-приложений без конкретного навыка из словаря.
+SYD.LO5,,Технологии не перечислены.
+SYD.LO6,web_security;performance,
+SYD.LO7,web_services,
+SYD.LO8,web_security,
+SYD.EXAM,,Длительность и формат экзамена не указывают проверяемый навык.
+SYD.A1,html_css;client_js;communication,
+SYD.QD,communication,"Упомянут показ групповой работы, но демонстрация индивидуальная. Сотрудничество здесь явно не оценивается."
+SYD.A2,web_services;teamwork;communication,
+BRK.O1,python;server_framework;rest_api,
+BRK.O2,relational_db;orm,
+BRK.O3,authn_authz,
+BRK.O4,containers,
+BRK.O5,async_tasks,
+BRK.O6,architecture,
+BRK.O7,cloud_deploy,
+BRK.EXPL,,Оценивается участие. Предметный навык не указан.
+BRK.LAB1,python,
+BRK.LAB2,server_framework,Flask назван явно. Формат API и методы HTTP не указаны.
+BRK.LAB3,validation,
+BRK.LAB4,,Указана база данных без типа или модели хранения.
+BRK.A1,server_framework;rest_api;validation,
+BRK.A2,validation;relational_db;orm;async_tasks;containers,Flask-Migrate назван в контексте миграций. Работа с маршрутами и методы HTTP не описаны.
+BRK.PROJ,server_framework;relational_db;orm;async_tasks;containers;teamwork;communication,SQLAlchemy обозначает работу с реляционной БД. Наличие репозитория само по себе не определяет систему контроля версий.
+V1.R1,python;server_framework,
+V1.R2,algorithms,
+V1.R3,architecture,
+V1.R4,monitoring,
+V1.R5,,Ответственность и соблюдение сроков отсутствуют в словаре.
+V1.R6,teamwork;communication,Обсуждение решений в команде разработчиков обозначает передачу технической информации.
+V2.R1,python;server_framework,
+V2.R2,async_tasks,
+V2.R3,relational_db;performance,Помимо администрирования явно указана оптимизация БД.
+V2.R4,web_server;performance,Помимо настройки явно указана оптимизация сервера.
+V2.R5,containers,
+V2.R6,git;teamwork,
+V2.R7,,C# указан как преимущество. В словаре нет соответствующего навыка.
+V3.R1,python,Из трёх альтернатив словарь охватывает только Python.
+V3.R2,relational_db;nosql_db,
+V3.R3,rest_api,
+V3.R4,teamwork,
+V3.R5,git,

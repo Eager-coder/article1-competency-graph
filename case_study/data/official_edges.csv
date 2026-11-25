@@ -1,0 +1,72 @@
+source,relation,target,source_id,locator
+SYD,targets,SYD.LO1,SYD,Learning outcomes
+SYD,targets,SYD.LO2,SYD,Learning outcomes
+SYD,targets,SYD.LO3,SYD,Learning outcomes
+SYD,targets,SYD.LO4,SYD,Learning outcomes
+SYD,targets,SYD.LO5,SYD,Learning outcomes
+SYD,targets,SYD.LO6,SYD,Learning outcomes
+SYD,targets,SYD.LO7,SYD,Learning outcomes
+SYD,targets,SYD.LO8,SYD,Learning outcomes
+SYD,contains,SYD.EXAM,SYD,Assessment table
+SYD,contains,SYD.A1,SYD,Assessment table
+SYD,contains,SYD.QD,SYD,Assessment table
+SYD,contains,SYD.A2,SYD,Assessment table
+SYD.EXAM,covers,SYD.LO1,SYD,Assessment table: Outcomes assessed (EXAM)
+SYD.EXAM,covers,SYD.LO2,SYD,Assessment table: Outcomes assessed (EXAM)
+SYD.EXAM,covers,SYD.LO4,SYD,Assessment table: Outcomes assessed (EXAM)
+SYD.EXAM,covers,SYD.LO5,SYD,Assessment table: Outcomes assessed (EXAM)
+SYD.EXAM,covers,SYD.LO6,SYD,Assessment table: Outcomes assessed (EXAM)
+SYD.EXAM,covers,SYD.LO7,SYD,Assessment table: Outcomes assessed (EXAM)
+SYD.EXAM,covers,SYD.LO8,SYD,Assessment table: Outcomes assessed (EXAM)
+SYD.A1,covers,SYD.LO4,SYD,Assessment table: Outcomes assessed (A1)
+SYD.A1,covers,SYD.LO5,SYD,Assessment table: Outcomes assessed (A1)
+SYD.A1,covers,SYD.LO6,SYD,Assessment table: Outcomes assessed (A1)
+SYD.QD,covers,SYD.LO1,SYD,Assessment table: Outcomes assessed (QD)
+SYD.QD,covers,SYD.LO2,SYD,Assessment table: Outcomes assessed (QD)
+SYD.QD,covers,SYD.LO3,SYD,Assessment table: Outcomes assessed (QD)
+SYD.QD,covers,SYD.LO4,SYD,Assessment table: Outcomes assessed (QD)
+SYD.QD,covers,SYD.LO5,SYD,Assessment table: Outcomes assessed (QD)
+SYD.QD,covers,SYD.LO6,SYD,Assessment table: Outcomes assessed (QD)
+SYD.QD,covers,SYD.LO7,SYD,Assessment table: Outcomes assessed (QD)
+SYD.QD,covers,SYD.LO8,SYD,Assessment table: Outcomes assessed (QD)
+SYD.A2,covers,SYD.LO1,SYD,Assessment table: Outcomes assessed (A2)
+SYD.A2,covers,SYD.LO2,SYD,Assessment table: Outcomes assessed (A2)
+SYD.A2,covers,SYD.LO3,SYD,Assessment table: Outcomes assessed (A2)
+SYD.A2,covers,SYD.LO4,SYD,Assessment table: Outcomes assessed (A2)
+SYD.A2,covers,SYD.LO5,SYD,Assessment table: Outcomes assessed (A2)
+SYD.A2,covers,SYD.LO6,SYD,Assessment table: Outcomes assessed (A2)
+SYD.A2,covers,SYD.LO7,SYD,Assessment table: Outcomes assessed (A2)
+SYD.A2,covers,SYD.LO8,SYD,Assessment table: Outcomes assessed (A2)
+BRK,targets,BRK.O1,BRK26,Learning Objectives
+BRK,targets,BRK.O2,BRK26,Learning Objectives
+BRK,targets,BRK.O3,BRK26,Learning Objectives
+BRK,targets,BRK.O4,BRK26,Learning Objectives
+BRK,targets,BRK.O5,BRK26,Learning Objectives
+BRK,targets,BRK.O6,BRK26,Learning Objectives
+BRK,targets,BRK.O7,BRK26,Learning Objectives
+BRK,contains,BRK.EXPL,BRK26,Grading (253B)
+BRK,contains,BRK.LAB1,BRK26,Grading (253B)
+BRK,contains,BRK.LAB2,BRK26,Grading (253B)
+BRK,contains,BRK.LAB3,BRK26,Grading (253B)
+BRK,contains,BRK.LAB4,BRK26,Grading (253B)
+BRK,contains,BRK.A1,BRK26,Grading (253B)
+BRK,contains,BRK.A2,BRK26,Grading (253B)
+BRK,contains,BRK.PROJ,BRK26,Grading (253B)
+V1,has_requirement,V1.R1,V1,Requirements
+V1,has_requirement,V1.R2,V1,Requirements
+V1,has_requirement,V1.R3,V1,Requirements
+V1,has_requirement,V1.R4,V1,Requirements
+V1,has_requirement,V1.R5,V1,Requirements
+V1,has_requirement,V1.R6,V1,Requirements
+V2,has_requirement,V2.R1,V2,Requirements
+V2,has_requirement,V2.R2,V2,Requirements
+V2,has_requirement,V2.R3,V2,Requirements
+V2,has_requirement,V2.R4,V2,Requirements
+V2,has_requirement,V2.R5,V2,Requirements
+V2,has_requirement,V2.R6,V2,Requirements
+V2,has_requirement,V2.R7,V2,Requirements
+V3,has_requirement,V3.R1,V3,Requirements
+V3,has_requirement,V3.R2,V3,Requirements
+V3,has_requirement,V3.R3,V3,Requirements
+V3,has_requirement,V3.R4,V3,Requirements
+V3,has_requirement,V3.R5,V3,Requirements

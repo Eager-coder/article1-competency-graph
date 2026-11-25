@@ -1,0 +1,446 @@
+{
+  "data_status": "entirely synthetic; no participants, real curricula or scraped vacancies",
+  "seed": 7,
+  "scenario_count": 11,
+  "scenarios_passed": 11,
+  "property_check_iterations": 1000,
+  "property_checks_passed": true,
+  "property_check_inputs": {
+    "iterations": 1000,
+    "revisions": 15615,
+    "revocations": 5053,
+    "late_initial_records": 8727,
+    "queries_with_t_ne_tau": 970,
+    "nonempty_states": 462,
+    "fallback_after_revoked_attempt": 52,
+    "future_revisions_injected": 1119
+  },
+  "thresholds": {
+    "disagreement": 0.35,
+    "role_v1": 0.7,
+    "role_v2": 0.6
+  },
+  "graph_example": {
+    "nodes": {
+      "C1": "Course",
+      "C2": "Course",
+      "L1": "LearningOutcome",
+      "L2": "LearningOutcome",
+      "L3": "LearningOutcome",
+      "python": "Skill",
+      "sql": "Skill",
+      "docker": "Skill",
+      "A": "Assessment",
+      "B": "Assessment",
+      "D": "Assessment",
+      "R": "Role",
+      "RP": "Requirement",
+      "RD": "Requirement"
+    },
+    "edges": [
+      [
+        "C1",
+        "targets",
+        "L1"
+      ],
+      [
+        "C1",
+        "targets",
+        "L2"
+      ],
+      [
+        "C2",
+        "targets",
+        "L3"
+      ],
+      [
+        "L1",
+        "addresses",
+        "python"
+      ],
+      [
+        "L2",
+        "addresses",
+        "docker"
+      ],
+      [
+        "L3",
+        "addresses",
+        "sql"
+      ],
+      [
+        "C1",
+        "contains",
+        "A"
+      ],
+      [
+        "C1",
+        "contains",
+        "B"
+      ],
+      [
+        "C2",
+        "contains",
+        "D"
+      ],
+      [
+        "A",
+        "assesses",
+        "python"
+      ],
+      [
+        "B",
+        "assesses",
+        "python"
+      ],
+      [
+        "D",
+        "assesses",
+        "sql"
+      ],
+      [
+        "R",
+        "has_requirement",
+        "RP"
+      ],
+      [
+        "R",
+        "has_requirement",
+        "RD"
+      ],
+      [
+        "RP",
+        "requires",
+        "python"
+      ],
+      [
+        "RD",
+        "requires",
+        "docker"
+      ]
+    ],
+    "node_count": 14,
+    "edge_count": 16,
+    "C1_targeted_skills": [
+      "docker",
+      "python"
+    ],
+    "C1_assessed_skills": [
+      "python"
+    ],
+    "R_required_skills": [
+      "docker",
+      "python"
+    ],
+    "C1_missing_assessment_coverage": [
+      "docker"
+    ]
+  },
+  "fixture": [
+    {
+      "evidence_id": "a1",
+      "revision": 1,
+      "student": "u",
+      "skill": "python",
+      "assessment": "A",
+      "attempt": 1,
+      "occurred": 1,
+      "recorded": 1,
+      "score": 0.8,
+      "weight": 1.0,
+      "status": "valid",
+      "rubric": "rubric-v1"
+    },
+    {
+      "evidence_id": "b1",
+      "revision": 1,
+      "student": "u",
+      "skill": "python",
+      "assessment": "B",
+      "attempt": 1,
+      "occurred": 2,
+      "recorded": 2,
+      "score": 0.4,
+      "weight": 0.5,
+      "status": "valid",
+      "rubric": "rubric-v1"
+    },
+    {
+      "evidence_id": "a2",
+      "revision": 1,
+      "student": "u",
+      "skill": "python",
+      "assessment": "A",
+      "attempt": 2,
+      "occurred": 3,
+      "recorded": 3,
+      "score": 0.6,
+      "weight": 1.0,
+      "status": "valid",
+      "rubric": "rubric-v1"
+    },
+    {
+      "evidence_id": "a2",
+      "revision": 2,
+      "student": "u",
+      "skill": "python",
+      "assessment": "A",
+      "attempt": 2,
+      "occurred": 3,
+      "recorded": 5,
+      "score": 0.9,
+      "weight": 1.0,
+      "status": "valid",
+      "rubric": "rubric-v1"
+    },
+    {
+      "evidence_id": "b1",
+      "revision": 2,
+      "student": "u",
+      "skill": "python",
+      "assessment": "B",
+      "attempt": 1,
+      "occurred": 2,
+      "recorded": 6,
+      "score": 0.4,
+      "weight": 0.5,
+      "status": "revoked",
+      "rubric": "rubric-v1"
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario": "S1 missing evidence and passive activity",
+      "status": "passed",
+      "observed": {
+        "estimate": null,
+        "support": 0.0,
+        "dispersion": null,
+        "evidence": [],
+        "latest_event": null
+      },
+      "meaning": "A view event does not create assessed evidence."
+    },
+    {
+      "scenario": "S2 observed zero",
+      "status": "passed",
+      "observed": {
+        "estimate": 0.0,
+        "support": 1.0,
+        "dispersion": 0.0,
+        "evidence": [
+          [
+            "z",
+            1
+          ]
+        ],
+        "latest_event": 1
+      },
+      "meaning": "Observed zero is distinguishable from unassessed."
+    },
+    {
+      "scenario": "S3 two assessments",
+      "status": "passed",
+      "observed": {
+        "estimate": 0.6666666666666666,
+        "support": 1.5,
+        "dispersion": 0.1885618083164127,
+        "evidence": [
+          [
+            "a1",
+            1
+          ],
+          [
+            "b1",
+            1
+          ]
+        ],
+        "latest_event": 2
+      },
+      "meaning": "Configured weights combine scores without a probability claim."
+    },
+    {
+      "scenario": "S4 repeated assessment",
+      "status": "passed",
+      "observed": {
+        "estimate": 0.5333333333333333,
+        "support": 1.5,
+        "dispersion": 0.09428090415820632,
+        "evidence": [
+          [
+            "a2",
+            1
+          ],
+          [
+            "b1",
+            1
+          ]
+        ],
+        "latest_event": 3
+      },
+      "meaning": "A second attempt replaces the first contribution from assessment A."
+    },
+    {
+      "scenario": "S5 correction and two time cutoffs",
+      "status": "passed",
+      "observed": {
+        "before": {
+          "estimate": 0.5333333333333333,
+          "support": 1.5,
+          "dispersion": 0.09428090415820632,
+          "evidence": [
+            [
+              "a2",
+              1
+            ],
+            [
+              "b1",
+              1
+            ]
+          ],
+          "latest_event": 3
+        },
+        "after": {
+          "estimate": 0.7333333333333334,
+          "support": 1.5,
+          "dispersion": 0.23570226039551584,
+          "evidence": [
+            [
+              "a2",
+              2
+            ],
+            [
+              "b1",
+              1
+            ]
+          ],
+          "latest_event": 3
+        },
+        "earlier_as_known_day6": {
+          "estimate": 0.8,
+          "support": 1.0,
+          "dispersion": 0.0,
+          "evidence": [
+            [
+              "a1",
+              1
+            ]
+          ],
+          "latest_event": 1
+        }
+      },
+      "meaning": "A day-5 correction changes reconstruction but cannot enter a day-4 knowledge snapshot."
+    },
+    {
+      "scenario": "S6 revocation",
+      "status": "passed",
+      "observed": {
+        "estimate": 0.9,
+        "support": 1.0,
+        "dispersion": 0.0,
+        "evidence": [
+          [
+            "a2",
+            2
+          ]
+        ],
+        "latest_event": 3
+      },
+      "meaning": "Revoking B removes its contribution while retaining the ledger history."
+    },
+    {
+      "scenario": "S7 divergent assessment scores",
+      "status": "passed",
+      "observed": {
+        "estimate": 0.5,
+        "support": 2.0,
+        "dispersion": 0.5,
+        "evidence": [
+          [
+            "a1",
+            1
+          ],
+          [
+            "b1",
+            1
+          ]
+        ],
+        "latest_event": 2
+      },
+      "meaning": "Dispersion triggers review under the illustrative threshold 0.35."
+    },
+    {
+      "scenario": "S8 requirement revision",
+      "status": "passed",
+      "observed": {
+        "state": 0.6666666666666666,
+        "old_requirement": 0.7,
+        "new_requirement": 0.6,
+        "old_alignment": "below configured threshold",
+        "new_alignment": "meets configured threshold"
+      },
+      "meaning": "A role requirement changes the comparison, not the student's estimated score."
+    },
+    {
+      "scenario": "S9 duplicates and replay order",
+      "status": "passed",
+      "observed": {
+        "estimate": 0.9,
+        "support": 1.0,
+        "dispersion": 0.0,
+        "evidence": [
+          [
+            "a2",
+            2
+          ]
+        ],
+        "latest_event": 3
+      },
+      "meaning": "Identical duplicate records and replay order leave the state unchanged."
+    },
+    {
+      "scenario": "S10 invalid input rejection",
+      "status": "passed",
+      "observed": {
+        "rejected_invalid_inputs": 3
+      },
+      "meaning": "Wrong edge types, missing source references and conflicting duplicate revisions are rejected."
+    },
+    {
+      "scenario": "S11 role trace and mapping constraint",
+      "status": "passed",
+      "observed": {
+        "trace": [
+          {
+            "requirement": "RD",
+            "level": 0.7,
+            "skill": "docker",
+            "assessments": [],
+            "evidence": [],
+            "estimate": null,
+            "label": "unassessed: no assessment mapping"
+          },
+          {
+            "requirement": "RP",
+            "level": 0.7,
+            "skill": "python",
+            "assessments": [
+              "A",
+              "B"
+            ],
+            "evidence": [
+              [
+                "a2",
+                2
+              ]
+            ],
+            "estimate": 0.9,
+            "label": "meets configured threshold"
+          }
+        ],
+        "rejected_unmapped_evidence": 1
+      },
+      "meaning": "Role R traces through requirements, skills and assessments to selected evidence; evidence for docker from A is rejected because A does not assess docker."
+    }
+  ]
+}

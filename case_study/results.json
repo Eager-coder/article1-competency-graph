@@ -1,0 +1,541 @@
+{
+  "mapping": "data/mapping.csv",
+  "graph": {
+    "entities": 50,
+    "skills": 26,
+    "edges": 137,
+    "edges_by_relation": {
+      "addresses": 18,
+      "assesses": 25,
+      "contains": 12,
+      "covers": 26,
+      "has_requirement": 18,
+      "requires": 23,
+      "targets": 15
+    }
+  },
+  "coverage": {
+    "SYD": {
+      "outcomes": 8,
+      "assessments": 4,
+      "official_outcome_coverage_available": true,
+      "outcomes_without_covering_assessment": [],
+      "outcomes_without_skill": [
+        "SYD.LO4",
+        "SYD.LO5"
+      ],
+      "assessments_without_skill": [
+        "SYD.EXAM"
+      ],
+      "targeted_skills": [
+        "architecture",
+        "communication",
+        "performance",
+        "teamwork",
+        "web_security",
+        "web_services"
+      ],
+      "directly_assessed_skills": [
+        "client_js",
+        "communication",
+        "html_css",
+        "teamwork",
+        "web_services"
+      ],
+      "skills_reached_only_through_covered_outcomes": [
+        "architecture",
+        "performance",
+        "web_security"
+      ],
+      "targeted_not_directly_assessed": [
+        "architecture",
+        "performance",
+        "web_security"
+      ],
+      "assessed_not_targeted": [
+        "client_js",
+        "html_css"
+      ]
+    },
+    "BRK": {
+      "outcomes": 7,
+      "assessments": 8,
+      "official_outcome_coverage_available": false,
+      "outcomes_without_covering_assessment": null,
+      "outcomes_without_skill": [],
+      "assessments_without_skill": [
+        "BRK.EXPL",
+        "BRK.LAB4"
+      ],
+      "targeted_skills": [
+        "architecture",
+        "async_tasks",
+        "authn_authz",
+        "cloud_deploy",
+        "containers",
+        "orm",
+        "python",
+        "relational_db",
+        "rest_api",
+        "server_framework"
+      ],
+      "directly_assessed_skills": [
+        "async_tasks",
+        "communication",
+        "containers",
+        "orm",
+        "python",
+        "relational_db",
+        "rest_api",
+        "server_framework",
+        "teamwork",
+        "validation"
+      ],
+      "skills_reached_only_through_covered_outcomes": [],
+      "targeted_not_directly_assessed": [
+        "architecture",
+        "authn_authz",
+        "cloud_deploy"
+      ],
+      "assessed_not_targeted": [
+        "communication",
+        "teamwork",
+        "validation"
+      ]
+    }
+  },
+  "vacancy_comparison": {
+    "SYD": {
+      "V1": {
+        "requirements": [
+          {
+            "requirement": "V1.R1",
+            "skills": [
+              "python",
+              "server_framework"
+            ],
+            "flags": [],
+            "status": "not covered"
+          },
+          {
+            "requirement": "V1.R2",
+            "skills": [
+              "algorithms"
+            ],
+            "flags": [],
+            "status": "not covered"
+          },
+          {
+            "requirement": "V1.R3",
+            "skills": [
+              "architecture"
+            ],
+            "flags": [],
+            "status": "targeted only"
+          },
+          {
+            "requirement": "V1.R4",
+            "skills": [
+              "monitoring"
+            ],
+            "flags": [],
+            "status": "not covered"
+          },
+          {
+            "requirement": "V1.R5",
+            "skills": [],
+            "flags": [
+              "non_technical"
+            ],
+            "status": "outside vocabulary"
+          },
+          {
+            "requirement": "V1.R6",
+            "skills": [
+              "communication",
+              "teamwork"
+            ],
+            "flags": [],
+            "status": "assessed"
+          }
+        ],
+        "counts": {
+          "assessed": 1,
+          "not covered": 3,
+          "outside vocabulary": 1,
+          "targeted only": 1
+        }
+      },
+      "V2": {
+        "requirements": [
+          {
+            "requirement": "V2.R1",
+            "skills": [
+              "python",
+              "server_framework"
+            ],
+            "flags": [],
+            "status": "not covered"
+          },
+          {
+            "requirement": "V2.R2",
+            "skills": [
+              "async_tasks"
+            ],
+            "flags": [],
+            "status": "not covered"
+          },
+          {
+            "requirement": "V2.R3",
+            "skills": [
+              "performance",
+              "relational_db"
+            ],
+            "flags": [],
+            "status": "not covered"
+          },
+          {
+            "requirement": "V2.R4",
+            "skills": [
+              "performance",
+              "web_server"
+            ],
+            "flags": [],
+            "status": "not covered"
+          },
+          {
+            "requirement": "V2.R5",
+            "skills": [
+              "containers"
+            ],
+            "flags": [],
+            "status": "not covered"
+          },
+          {
+            "requirement": "V2.R6",
+            "skills": [
+              "git",
+              "teamwork"
+            ],
+            "flags": [],
+            "status": "not covered"
+          },
+          {
+            "requirement": "V2.R7",
+            "skills": [],
+            "flags": [
+              "optional"
+            ],
+            "status": "outside vocabulary"
+          }
+        ],
+        "counts": {
+          "not covered": 6,
+          "outside vocabulary": 1
+        }
+      },
+      "V3": {
+        "requirements": [
+          {
+            "requirement": "V3.R1",
+            "skills": [
+              "python"
+            ],
+            "flags": [
+              "alternatives"
+            ],
+            "status": "not covered"
+          },
+          {
+            "requirement": "V3.R2",
+            "skills": [
+              "nosql_db",
+              "relational_db"
+            ],
+            "flags": [],
+            "status": "not covered"
+          },
+          {
+            "requirement": "V3.R3",
+            "skills": [
+              "rest_api"
+            ],
+            "flags": [],
+            "status": "not covered"
+          },
+          {
+            "requirement": "V3.R4",
+            "skills": [
+              "teamwork"
+            ],
+            "flags": [],
+            "status": "assessed"
+          },
+          {
+            "requirement": "V3.R5",
+            "skills": [
+              "git"
+            ],
+            "flags": [],
+            "status": "not covered"
+          }
+        ],
+        "counts": {
+          "assessed": 1,
+          "not covered": 4
+        }
+      }
+    },
+    "BRK": {
+      "V1": {
+        "requirements": [
+          {
+            "requirement": "V1.R1",
+            "skills": [
+              "python",
+              "server_framework"
+            ],
+            "flags": [],
+            "status": "assessed"
+          },
+          {
+            "requirement": "V1.R2",
+            "skills": [
+              "algorithms"
+            ],
+            "flags": [],
+            "status": "not covered"
+          },
+          {
+            "requirement": "V1.R3",
+            "skills": [
+              "architecture"
+            ],
+            "flags": [],
+            "status": "targeted only"
+          },
+          {
+            "requirement": "V1.R4",
+            "skills": [
+              "monitoring"
+            ],
+            "flags": [],
+            "status": "not covered"
+          },
+          {
+            "requirement": "V1.R5",
+            "skills": [],
+            "flags": [
+              "non_technical"
+            ],
+            "status": "outside vocabulary"
+          },
+          {
+            "requirement": "V1.R6",
+            "skills": [
+              "communication",
+              "teamwork"
+            ],
+            "flags": [],
+            "status": "assessed"
+          }
+        ],
+        "counts": {
+          "assessed": 2,
+          "not covered": 2,
+          "outside vocabulary": 1,
+          "targeted only": 1
+        }
+      },
+      "V2": {
+        "requirements": [
+          {
+            "requirement": "V2.R1",
+            "skills": [
+              "python",
+              "server_framework"
+            ],
+            "flags": [],
+            "status": "assessed"
+          },
+          {
+            "requirement": "V2.R2",
+            "skills": [
+              "async_tasks"
+            ],
+            "flags": [],
+            "status": "assessed"
+          },
+          {
+            "requirement": "V2.R3",
+            "skills": [
+              "performance",
+              "relational_db"
+            ],
+            "flags": [],
+            "status": "not covered"
+          },
+          {
+            "requirement": "V2.R4",
+            "skills": [
+              "performance",
+              "web_server"
+            ],
+            "flags": [],
+            "status": "not covered"
+          },
+          {
+            "requirement": "V2.R5",
+            "skills": [
+              "containers"
+            ],
+            "flags": [],
+            "status": "assessed"
+          },
+          {
+            "requirement": "V2.R6",
+            "skills": [
+              "git",
+              "teamwork"
+            ],
+            "flags": [],
+            "status": "not covered"
+          },
+          {
+            "requirement": "V2.R7",
+            "skills": [],
+            "flags": [
+              "optional"
+            ],
+            "status": "outside vocabulary"
+          }
+        ],
+        "counts": {
+          "assessed": 3,
+          "not covered": 3,
+          "outside vocabulary": 1
+        }
+      },
+      "V3": {
+        "requirements": [
+          {
+            "requirement": "V3.R1",
+            "skills": [
+              "python"
+            ],
+            "flags": [
+              "alternatives"
+            ],
+            "status": "assessed"
+          },
+          {
+            "requirement": "V3.R2",
+            "skills": [
+              "nosql_db",
+              "relational_db"
+            ],
+            "flags": [],
+            "status": "not covered"
+          },
+          {
+            "requirement": "V3.R3",
+            "skills": [
+              "rest_api"
+            ],
+            "flags": [],
+            "status": "assessed"
+          },
+          {
+            "requirement": "V3.R4",
+            "skills": [
+              "teamwork"
+            ],
+            "flags": [],
+            "status": "assessed"
+          },
+          {
+            "requirement": "V3.R5",
+            "skills": [
+              "git"
+            ],
+            "flags": [],
+            "status": "not covered"
+          }
+        ],
+        "counts": {
+          "assessed": 3,
+          "not covered": 2
+        }
+      }
+    }
+  },
+  "representational_findings": {
+    "requirements_with_alternatives": [
+      "V3.R1"
+    ],
+    "optional_requirements": [
+      "V2.R7"
+    ],
+    "non_technical_requirements": [
+      "V1.R5"
+    ],
+    "pass_fail_assessments": [
+      "BRK.EXPL"
+    ],
+    "course_level_drop_lowest_rules": [
+      "BRK.LAB1",
+      "BRK.LAB2",
+      "BRK.LAB3",
+      "BRK.LAB4"
+    ],
+    "assessments_with_resubmission": [
+      "BRK.A1",
+      "BRK.A2"
+    ],
+    "hurdle_assessments": [
+      "SYD.EXAM"
+    ],
+    "courses_with_official_assessment_outcome_map": [
+      "SYD"
+    ]
+  },
+  "policy_experiment": {
+    "seed": 7,
+    "students": 1000,
+    "skills": [
+      "async_tasks",
+      "containers",
+      "orm",
+      "relational_db",
+      "rest_api",
+      "server_framework",
+      "validation"
+    ],
+    "level": 0.7,
+    "student_skill_pairs": 7000,
+    "records": 12016,
+    "labels": {
+      "latest": {
+        "meets configured threshold": 3807,
+        "below configured threshold": 3193
+      },
+      "average_if_improved": {
+        "below configured threshold": 3292,
+        "meets configured threshold": 3708
+      },
+      "best": {
+        "meets configured threshold": 3994,
+        "below configured threshold": 3006
+      }
+    },
+    "label_differs": {
+      "latest_vs_average_if_improved": 463,
+      "latest_vs_best": 187
+    },
+    "label_differs_share": {
+      "latest_vs_average_if_improved": 0.0661,
+      "latest_vs_best": 0.0267
+    },
+    "note": "Synthetic scores; dispersion ignored (set to 0) to isolate the attempt rule."
+  }
+}

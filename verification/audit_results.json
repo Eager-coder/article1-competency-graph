@@ -1,0 +1,37 @@
+{
+  "seed": 41,
+  "ledgers": 200,
+  "queries": 2000,
+  "additional_revisions": 4809,
+  "revoked_revisions": 1564,
+  "late_initial_records": 2818,
+  "sql_agreement": true,
+  "absolute_and_relative_tolerance": 1e-12,
+  "counterexamples": [
+    {
+      "omitted_rule": "recording cutoff",
+      "expected": 0.2,
+      "simplified": 0.8,
+      "consequence": "A correction recorded on day 5 leaks into a day-2 reconstruction."
+    },
+    {
+      "omitted_rule": "revision resolution",
+      "expected": 0.8,
+      "simplified": 0.5,
+      "consequence": "Averaging both revisions counts one observation twice."
+    },
+    {
+      "omitted_rule": "resolve revision before revocation filter",
+      "expected": null,
+      "simplified": 0.2,
+      "consequence": "Filtering revoked rows first resurrects a withdrawn observation."
+    },
+    {
+      "omitted_rule": "one attempt per assessment",
+      "expected": 0.8,
+      "simplified": 0.5,
+      "consequence": "Averaging both attempts changes the declared latest-valid-attempt policy."
+    }
+  ],
+  "limitation": "Agreement of implementations of one policy is not validation of that policy or of competence measurement."
+}

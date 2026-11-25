@@ -1,0 +1,51 @@
+entity_id,type,source_id,locator,text,flags
+SYD,Course,SYD,header,COMP5347 Web Application Development (6 cp; 2026 S1),
+SYD.LO1,LearningOutcome,SYD,Learning outcomes LO1,Discuss the MVC architecture of web applications,
+SYD.LO2,LearningOutcome,SYD,Learning outcomes LO2,Describe and analyse web application architectures and report on them,
+SYD.LO3,LearningOutcome,SYD,Learning outcomes LO3,Undertake collaborative web application development in a small team,
+SYD.LO4,LearningOutcome,SYD,Learning outcomes LO4,Understand web application fundamentals and how they differ from standalone applications,
+SYD.LO5,LearningOutcome,SYD,Learning outcomes LO5,Obtain development skills in a core set of technologies,
+SYD.LO6,LearningOutcome,SYD,Learning outcomes LO6,"Understand non-functional requirements such as performance and security",
+SYD.LO7,LearningOutcome,SYD,Learning outcomes LO7,Understand ways of exposing functionality as services for other applications,
+SYD.LO8,LearningOutcome,SYD,Learning outcomes LO8,"Understand, investigate and identify web application security issues",
+SYD.EXAM,Assessment,SYD,Assessment table row 1,Final written exam (2 h; supervised; hurdle),weight=0.55;hurdle
+SYD.A1,Assessment,SYD,Assessment table row 2 + description,Individual client-side web application using HTML/CSS/JavaScript; code + demo + quiz,weight=0.15
+SYD.QD,Assessment,SYD,Assessment table row 3 + description,In-tutorial individual quiz and demonstration of own and group work,weight=0.05
+SYD.A2,Assessment,SYD,Assessment table row 4 + description,Group development of a complete front- and back-end web application with web services; code + technical report + demo,weight=0.25
+BRK,Course,BRK26,header + Grading,INFO 253B Backend Web Architecture (graduate variant; Spring 2026),
+BRK.O1,LearningOutcome,BRK26,Learning Objectives 1,Build RESTful APIs in Python (Flask) following industry practice,
+BRK.O2,LearningOutcome,BRK26,Learning Objectives 2,Design and implement relational databases with SQLAlchemy ORM,
+BRK.O3,LearningOutcome,BRK26,Learning Objectives 3,Implement secure authentication and authorization with JWT,
+BRK.O4,LearningOutcome,BRK26,Learning Objectives 4,Containerize applications with Docker and docker-compose,
+BRK.O5,LearningOutcome,BRK26,Learning Objectives 5,Process background tasks asynchronously with Redis and task queues,
+BRK.O6,LearningOutcome,BRK26,Learning Objectives 6,Apply system design principles to architect scalable backends,
+BRK.O7,LearningOutcome,BRK26,Learning Objectives 7,Deploy backend applications to cloud platforms,
+BRK.EXPL,Assessment,BRK26,Grading + In-Class Explorations,In-class explorations graded pass/no-pass on engagement (correctness not graded),weight=0.10;pass_fail
+BRK.LAB1,Assessment,BRK26,Course Schedule week 2,Lab 1: Python practice,weight=0.05;drop_lowest_lab
+BRK.LAB2,Assessment,BRK26,Course Schedule week 3,Lab 2: Flask API,weight=0.05;drop_lowest_lab
+BRK.LAB3,Assessment,BRK26,Course Schedule week 6,Lab 3: Validation,weight=0.05;drop_lowest_lab
+BRK.LAB4,Assessment,BRK26,Course Schedule week 7,Lab 4: Database,weight=0.05;drop_lowest_lab
+BRK.A1,Assessment,BRK26,Assignment 1,"Task Manager REST API with CRUD and in-memory storage; skills listed: Flask routes and request handling, HTTP methods, JSON request/response, HTTP status codes, input validation and error handling",weight=0.15;resubmission
+BRK.A2,Assessment,BRK26,Assignment 2,"Production Task Manager API; skills listed: SQLAlchemy ORM and model relationships, Flask-Migrate migrations, Marshmallow validation, background tasks with Redis/rq, Docker Compose multi-service; deliverable with PostgreSQL, Redis and workers",weight=0.15;resubmission
+BRK.PROJ,Assessment,BRK26,Final Projects & Exam,"Group project (4-5 students): full backend application with Flask, SQLAlchemy, Docker and async processing; proposal, repository and presentation",weight=0.40
+V1,Role,V1,title,Junior backend developer (Python/Django),
+V1.R1,Requirement,V1,Requirements line 1,Development experience in Python (Django),
+V1.R2,Requirement,V1,Requirements line 2,"Experience solving algorithmic problems (Codewars, LeetCode or similar)",
+V1.R3,Requirement,V1,Requirements line 3,Understanding of basic backend development and architecture principles,
+V1.R4,Requirement,V1,Requirements line 4,Ability to work with logs and analyse incidents,
+V1.R5,Requirement,V1,Requirements line 5,Responsibility and meeting deadlines,non_technical
+V1.R6,Requirement,V1,Requirements line 6,Ability to work in a team and discuss decisions,
+V2,Role,V2,title,Python backend developer (Junior+/Strong Junior),
+V2.R1,Requirement,V2,Requirements line 1,Confident Python and commercial Django development,
+V2.R2,Requirement,V2,Requirements line 2,"Practical work with Redis, Celery and Celery Beat for background and periodic tasks",
+V2.R3,Requirement,V2,Requirements line 3,"Deep knowledge of administering and optimising relational databases, mainly PostgreSQL",
+V2.R4,Requirement,V2,Requirements line 4,Configuring and optimising the NGINX web server,
+V2.R5,Requirement,V2,Requirements line 5,Confident containerization with Docker,
+V2.R6,Requirement,V2,Requirements line 6,Team development using Git,
+V2.R7,Requirement,V2,Requirements line 7,Knowledge of C# is a significant advantage,optional
+V3,Role,V3,title,Backend developer (PHP/Python/Node.js),
+V3.R1,Requirement,V3,Requirements line 1,"Knowledge of PHP, Python or Node.js",alternatives
+V3.R2,Requirement,V3,Requirements line 2,Experience with relational and NoSQL databases,
+V3.R3,Requirement,V3,Requirements line 3,Understanding of REST and API principles,
+V3.R4,Requirement,V3,Requirements line 4,Ability to work in a team and willingness to develop,
+V3.R5,Requirement,V3,Requirements line 5,Basic knowledge of version control systems (Git),

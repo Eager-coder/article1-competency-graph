@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "Graph Models of Educational and Professional Relations and an Evidence-Based Dynamic Student Competency Profile: code and data"
+authors:
+  - family-names: Turan
+    given-names: Sultan
+    affiliation: Astana IT University
+version: 1.0.0
+date-released: 2026-11-25
+license: MIT
+type: software
+keywords:
+  - competency profile
+  - property graph
+  - learning analytics
+  - curriculum-labour market alignment

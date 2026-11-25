@@ -1,0 +1,27 @@
+skill_id,label,scope_note
+html_css,HTML and CSS,page structure and styling
+client_js,Client-side JavaScript,DOM scripting and browser-side logic
+client_framework,Client-side framework,component frameworks running in the browser
+python,Python programming,general Python language use
+server_framework,Server-side web framework,routing and request handling in Express/Flask/Django or similar
+rest_api,REST API design,"endpoints, HTTP methods, status codes, JSON"
+validation,Input validation and error handling,schema validation and error responses
+relational_db,Relational databases and SQL,"schema design, SQL, PostgreSQL administration"
+orm,ORM and migrations,object-relational mapping and schema migrations
+nosql_db,NoSQL databases,document or key-value stores as primary storage
+authn_authz,Authentication and authorization,"sessions, tokens (JWT), access control"
+web_security,Web application security,threats and defences beyond login
+async_tasks,Background and periodic tasks,task queues such as rq or Celery with Redis
+caching,Caching,application or proxy caching
+containers,Containerization,Docker and docker-compose
+cloud_deploy,Cloud deployment,deploying applications to cloud platforms
+architecture,Web application architecture and system design,"MVC, layering, scalable design"
+web_services,Web services and integration,exposing or consuming services and external APIs
+web_server,Web server configuration,"reverse proxy, load balancing (e.g. NGINX)"
+testing,Automated testing,unit and integration tests (e.g. pytest)
+git,Version control with Git,
+teamwork,Team collaboration,working in a development team
+communication,Technical communication,"reports, demos, presentations"
+performance,Performance and non-functional requirements,
+monitoring,Logging and incident analysis,"logs, metrics, incident investigation"
+algorithms,Algorithmic problem solving,
