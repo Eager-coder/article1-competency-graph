@@ -1,7 +1,7 @@
 # Article 1: competency graph and evidence-based profile
 
-Code and data for the paper *Graph Models of Educational and Professional
-Relations and an Evidence-Based Dynamic Student Competency Profile*
+Code and data for the paper *An Evidence-Selection Model for Dynamic Student Competency
+Profiles over a Curriculum–Job Graph*
 (Sultan Turan, Astana IT University).
 
 The repository contains a reference implementation of the typed graph, the
@@ -26,6 +26,7 @@ cd verification
 python3 verify_models.py --output reproduced_verification.json
 python3 mutation_checks.py
 python3 evaluate_audit.py
+python3 baselines.py --output reproduced_baselines.json
 cd ../case_study
 python3 case_study.py --output reproduced_results.json
 ```
@@ -35,6 +36,7 @@ python3 case_study.py --output reproduced_results.json
 | `verification/verify_models.py` | scenario table, property checks | 13/13 scenarios pass; 1,000 property-check iterations pass. The output is identical to `verification_results.json` |
 | `verification/mutation_checks.py` | rule-removal check | the faithful re-implementation passes, and all 10 simplified versions are caught |
 | `verification/evaluate_audit.py` | SQL cross-check | 2,000/2,000 queries agree (seed 41, 200 ledgers); rewrites `audit_results.json` with identical content |
+| `verification/baselines.py` | profile vs. gradebook and event log (Table IV) | 12 values asserted in the script; output identical to `baseline_results.json` |
 | `case_study/case_study.py` | case study on public specifications | output is identical to `results.json` (see below) |
 
 ## Case study (`case_study/`)

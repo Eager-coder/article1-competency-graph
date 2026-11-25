@@ -1,0 +1,69 @@
+{
+  "ledger": "Table II",
+  "queries": [
+    {
+      "t": 2,
+      "tau": 2,
+      "specified": [
+        0.667,
+        1.5
+      ],
+      "gradebook": [
+        0.8,
+        1.0
+      ],
+      "event_log": [
+        0.667,
+        1.5
+      ]
+    },
+    {
+      "t": 3,
+      "tau": 4,
+      "specified": [
+        0.533,
+        1.5
+      ],
+      "gradebook": [
+        0.9,
+        1.0
+      ],
+      "event_log": [
+        0.64,
+        2.5
+      ]
+    },
+    {
+      "t": 3,
+      "tau": 5,
+      "specified": [
+        0.733,
+        1.5
+      ],
+      "gradebook": [
+        0.9,
+        1.0
+      ],
+      "event_log": [
+        0.714,
+        3.5
+      ]
+    },
+    {
+      "t": 3,
+      "tau": 6,
+      "specified": [
+        0.9,
+        1.0
+      ],
+      "gradebook": [
+        0.9,
+        1.0
+      ],
+      "event_log": [
+        0.714,
+        3.5
+      ]
+    }
+  ]
+}

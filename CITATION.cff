@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
-title: "Graph Models of Educational and Professional Relations and an Evidence-Based Dynamic Student Competency Profile: code and data"
+title: "An Evidence-Selection Model for Dynamic Student Competency Profiles over a Curriculum–Job Graph: code and data"
 authors:
   - family-names: Turan
     given-names: Sultan
