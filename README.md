@@ -37,6 +37,7 @@ python3 case_study.py --output reproduced_results.json
 | `verification/mutation_checks.py` | rule-removal check | the faithful re-implementation passes, and all 10 simplified versions are caught |
 | `verification/evaluate_audit.py` | SQL cross-check | 2,000/2,000 queries agree (seed 41, 200 ledgers); rewrites `audit_results.json` with identical content |
 | `verification/baselines.py` | profile vs. gradebook and event log (Table IV) | 12 values asserted in the script; output identical to `baseline_results.json` |
+| `case_study/seed_sweep.py` | 50-seed range of the attempt-policy result | 5.4–7.5% (average-if-improved), 2.1–3.5% (best); identical to `seed_sweep.json` |
 | `case_study/case_study.py` | case study on public specifications | output is identical to `results.json` (see below) |
 
 ## Case study (`case_study/`)
